@@ -134,10 +134,7 @@ public class VentanaEvento extends JFrame {
         modeloEliminar = new DefaultTableModel(col, 0) {
             @Override
             public Class<?> getColumnClass(int c) {
-                if (c == 5) {
-                    return Boolean.class;
-                }
-                return String.class;
+                return (c == 5) ? Boolean.class : String.class;
             }
         };
 
@@ -167,12 +164,59 @@ public class VentanaEvento extends JFrame {
         lblCel.setBounds(50, 80, 150, 25);
         txtTelefonoInv.setBounds(200, 80, 250, 25);
 
-        btnRegistrarInv.setBounds(200, 130, 120, 30);
+        JLabel lblGenero = new JLabel("Género:");
+        lblGenero.setBounds(50, 120, 100, 25);
+
+        JRadioButton rbMasc = new JRadioButton("Masculino", true);
+        JRadioButton rbFem = new JRadioButton("Femenino");
+
+        rbMasc.setBounds(200, 120, 100, 25);
+        rbFem.setBounds(320, 120, 100, 25);
+
+        ButtonGroup grupoGenero = new ButtonGroup();
+        grupoGenero.add(rbMasc);
+        grupoGenero.add(rbFem);
+
+        JLabel lblFecha = new JLabel("Fecha de Nacimiento:");
+        lblFecha.setBounds(50, 160, 150, 25);
+
+        JComboBox<String> cbDia = new JComboBox<>();
+        JComboBox<String> cbMes = new JComboBox<>();
+        JComboBox<String> cbAnio = new JComboBox<>();
+
+        for (int i = 1; i <= 31; i++) cbDia.addItem(String.valueOf(i));
+        for (int i = 1; i <= 12; i++) cbMes.addItem(String.valueOf(i));
+        for (int i = 1990; i <= 2025; i++) cbAnio.addItem(String.valueOf(i));
+
+        cbDia.setBounds(200, 160, 60, 25);
+        cbMes.setBounds(270, 160, 60, 25);
+        cbAnio.setBounds(340, 160, 80, 25);
+
+        JLabel lblDir = new JLabel("Dirección:");
+        lblDir.setBounds(50, 200, 100, 25);
+
+        JTextField txtDireccion = new JTextField();
+        txtDireccion.setBounds(200, 200, 250, 25);
+
+        JCheckBox chkTerminos = new JCheckBox("Acepta Términos y Condiciones");
+        chkTerminos.setBounds(50, 240, 300, 25);
+
+        btnRegistrarInv.setBounds(200, 280, 120, 30);
 
         panel.add(lblNombre);
         panel.add(txtNombreInv);
         panel.add(lblCel);
         panel.add(txtTelefonoInv);
+        panel.add(lblGenero);
+        panel.add(rbMasc);
+        panel.add(rbFem);
+        panel.add(lblFecha);
+        panel.add(cbDia);
+        panel.add(cbMes);
+        panel.add(cbAnio);
+        panel.add(lblDir);
+        panel.add(txtDireccion);
+        panel.add(chkTerminos);
         panel.add(btnRegistrarInv);
 
         return panel;
@@ -204,7 +248,7 @@ public class VentanaEvento extends JFrame {
 
         boolean alarma = chkAlarm.isSelected();
 
-        Evento evento = controller.agregarEvento(nombre, fecha);
+        controller.agregarEvento(nombre, fecha);
 
         modeloTabla.addRow(new Object[]{fecha, nombre, frecuencia, email, alarma});
         modeloEliminar.addRow(new Object[]{fecha, nombre, frecuencia, email, alarma, false});
@@ -279,4 +323,3 @@ public class VentanaEvento extends JFrame {
         chkAlarm.setSelected(false);
     }
 }
-

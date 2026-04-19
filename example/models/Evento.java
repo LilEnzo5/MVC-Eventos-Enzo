@@ -2,21 +2,22 @@ package models;
 
 import java.util.ArrayList;
 
-
 public class Evento {
-    private String Evento;
-    private String Fecha;
+
+    private String nombre;
+    private String fecha;
     private ArrayList<String> invitados;
 
     public Evento(String nombre, String fecha) {
         this.nombre = nombre;
         this.fecha = fecha;
-        this.invitados = new ArrayList<>();
-
+        invitados = new ArrayList<>();
     }
 
     public void agregarInvitado(String invitado) {
-        invitados.add(invitado);
+        if (invitado != null && !invitado.isEmpty()) {
+            invitados.add(invitado);
+        }
     }
 
     public String getNombre() {
